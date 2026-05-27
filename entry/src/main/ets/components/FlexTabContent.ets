@@ -1,3 +1,4 @@
+import { Music,createMusicList } from '../data/PageContent'
 //tabs结构内容
 @Preview
 @Component
@@ -5,6 +6,7 @@ export struct HouseContent {
   @State tabName: string = ''
   @State tabContent: string = ''
   @State currentTab: number = 0
+  @State music: Music[] = createMusicList()
 
   build() {
       Tabs({ index: this.currentTab,barPosition: BarPosition.Start }) {
@@ -12,12 +14,12 @@ export struct HouseContent {
           Scroll(){
             Column(){
              Grid(){
-               ForEach([1, 2, 3], (item: number, index) => {
+               ForEach(this.music, (item: Music, index) => {
                  GridItem(){
                  Column(){
                   Row(){
                     Text("For you")
-                    Image($r('app.media.luoke'))
+                    Image(item.cover)
                       .width(70)
                   }
                   .width("100%")
@@ -28,9 +30,21 @@ export struct HouseContent {
                    Row(){
                     Column(){
                       Text("猜你喜欢")
-                      Text("歌名")
+                      Marquee({
+                        start: true,  // 是否开始滚动
+                        step: 6,      // 滚动步长（像素）
+                        loop: 1,      // 循环次数，-1表示无限循环
+                        src: item.name
+                      })
+                        .fontSize(16)
+                        .fontColor(Color.Black)
+                        .marqueeUpdateStrategy(MarqueeUpdateStrategy.DEFAULT)
 
                     }
+                    .backgroundColor(Color.Green)
+                     .width(100)
+                     //子组件居右显示
+                     .alignItems(HorizontalAlign.Start)
                     Row(){
                       Image($r('app.media.play'))
                         .width(40)
@@ -73,11 +87,20 @@ export struct HouseContent {
 
                   // 横向滚动网格
                   Grid() {
-                    ForEach([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (subItem: number) => {
+                    ForEach(this.music, (Item: Music, index) => {
                       GridItem() {
                        Row(){
-                         Image($r('app.media.luoke'))
+                         Image(Item.cover)
                            .width(50)
+                         Column(){
+                           Text(Item.name)
+                             .fontSize(15)
+                           Text(Item.singer)
+                             .fontSize(12)
+                         }
+                         .backgroundColor(Color.Green)
+                         .width(200)
+                         .alignItems(HorizontalAlign.Start)
                        }
                        .width("100%")
                       }

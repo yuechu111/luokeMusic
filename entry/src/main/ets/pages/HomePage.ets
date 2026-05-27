@@ -78,8 +78,42 @@ struct HomePage {
       }
     }, 500)
   }
+  //上一首
+  async previous() {
+    // 1. 先停止当前播放
+    await this.player.stop()
+
+    // 2. 清除进度更新定时器
+    if (this.progressTimer !== -1) {
+      clearInterval(this.progressTimer)
+      this.progressTimer = -1
+    }
+
+    // 3. 重置状态
+    this.isPlaying = false
+    this.currentTime = 0
+
+    // 4. 切换索引并播放新歌（注意减号的处理）
+    this.currentIndex = (this.currentIndex - 1 + this.musicList.length) % this.musicList.length
+    await this.playCurrent()
+  }
+
   //下一首
   async next() {
+    // 1. 先停止当前播放
+    await this.player.stop()
+
+    // 2. 清除进度更新定时器
+    if (this.progressTimer !== -1) {
+      clearInterval(this.progressTimer)
+      this.progressTimer = -1
+    }
+
+    // 3. 重置状态
+    this.isPlaying = false
+    this.currentTime = 0
+
+    // 4. 切换索引并播放新歌
     this.currentIndex = (this.currentIndex + 1) % this.musicList.length
     await this.playCurrent()
   }
@@ -136,6 +170,7 @@ struct HomePage {
           Row({space:10}){
             Image($r('app.media.heart'))
               .width(25)
+              .onClick(() => {this.previous()})
             Image(this.isPlaying ? $r('app.media.pause') : $r('app.media.play'))
               .width(40)
               .onClick(() => {
@@ -143,6 +178,7 @@ struct HomePage {
               })
             Image($r('app.media.list'))
               .width(30)
+              .onClick(() => {this.next()})
           }
           .margin({right: 10})
           }
