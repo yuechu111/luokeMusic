@@ -1,9 +1,12 @@
 // components/FlexibleTabs.ets
+import {HouseContent} from './FlexTabContent';
+
+//FlexTabs结构
+
 @Preview
 @Component
 export struct FlexTabs {
   @State currentTab: number = 0
-  @Prop tabTitles: string[] = []
   tabIcons: Resource[] = [
     $r('app.media.house'),
     $r('app.media.file_play'),
@@ -17,22 +20,13 @@ export struct FlexTabs {
     $r('app.media.person_fill')
   ]
 
-  // 使用 @BuilderParam 接收外部传入的内容
-  @BuilderParam homeContent: () => void = this.defaultContent
-  @BuilderParam videoContent: () => void = this.defaultContent
-  @BuilderParam starContent: () => void = this.defaultContent
-  @BuilderParam myContent: () => void = this.defaultContent
 
-  @Builder
-  defaultContent() {
-    Text('默认内容')
-  }
   build() {
     Tabs({ index: this.currentTab,barPosition: BarPosition.End }) {
       TabContent() {
         Scroll(){
           Column(){
-        this.homeContent ()
+            HouseContent()
           }
         }
       }
@@ -41,7 +35,7 @@ export struct FlexTabs {
       TabContent() {
         Scroll(){
           Column() {
-            this.videoContent
+
           }
         }
       }
@@ -50,7 +44,7 @@ export struct FlexTabs {
       TabContent() {
         Scroll(){
           Column() {
-            this.starContent()
+
           }
         }
       }
@@ -59,7 +53,7 @@ export struct FlexTabs {
       TabContent() {
         Scroll() {
           Column() {
-            this.myContent()
+
           }
         }
       }

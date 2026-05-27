@@ -11,7 +11,7 @@ export struct HomePageC {
       }
     )
       .width("80%")
-      .height(25)
+      .height(35)
       .onClick(() => {})
     }
     .width("100%")

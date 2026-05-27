@@ -1,5 +1,8 @@
 import router from '@ohos.router'
+import {account} from "../data/PageContent";
 
+
+//登录页面
 @Entry
 @Component
 struct Login {
@@ -51,11 +54,10 @@ struct Login {
           .width(200)
           .backgroundColor("#cc00bcfd")
           .onClick(() => {
-            if (this.username.trim() === "admin" && this.password.trim() === "123456") {
+            if (account.get(this.username) === this.password) {
               router.pushUrl({
                 url: "pages/HomePage"
               }).catch(() => {
-                // TODO: Implement error handling.
                 console.log("Error: Failed to push URL.")
               })
             } else {

@@ -11,6 +11,10 @@
     {
       "name": "EntryAbility_label",
       "value": "洛克音乐"
+    },
+    {
+      "name": "media_location_reason",
+      "value": "需要访问媒体文件以播放音乐"
     }
   ]
 }
