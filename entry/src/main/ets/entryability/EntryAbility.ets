@@ -22,6 +22,15 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
+    // 同步获取主窗口并存入 AppStorage，供页面组件设置屏幕方向
+    try {
+      const win = windowStage.getMainWindowSync()
+      AppStorage.set<window.Window>('window', win)
+      hilog.info(DOMAIN, 'testTag', 'MainWindow stored to AppStorage successfully')
+    } catch (err) {
+      hilog.error(DOMAIN, 'testTag', 'Failed to get main window: %{public}s', JSON.stringify(err))
+    }
+
     windowStage.loadContent('pages/Login', (err) => {
       if (err.code) {
         hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));

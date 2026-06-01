@@ -13,7 +13,7 @@ struct Login {
     Column(){
       Column({space: 10}){
         Row(){
-          Text("洛克音乐")
+          Text("LK音乐")
             .fontSize(40)
             .fontWeight(FontWeight.Bold)
         }
@@ -66,7 +66,10 @@ struct Login {
                 message: "用户名或密码错误"
               })
             }
-          })
+            // router.pushUrl({
+            //   url: "pages/HomePage"
+            // })
+            })
       }
       .width("100%")
       .height(150)
